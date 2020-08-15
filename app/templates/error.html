@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="static/basic.css" rel="stylesheet">
+    <style>
+        body {
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+          background-image: url({{ url_for('static', filename='img/error.jpg') }});
+        }
+
+         #TITLE {
+            color: black;
+            padding: 5px;
+            text-align: center;
+            font-size: 36px;
+            font-family: courier;
+            font-style: bold;
+        }
+       
+    </style>
+</head>
+
+<body>
+    <h3>
+         <a id='TITLE' href = "{{ url_for('index') }}">NYC House Price Prediction</a>
+    </h3>
+
+    <div class="alert alert-danger" role="alert">
+  <p class="alert-link">We're sorry. There was a problem accessing the database. Please try back later. </p>
+    </div>
+
+</body>
+</html>

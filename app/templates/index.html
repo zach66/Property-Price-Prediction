@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <link href="static/basic.css" rel="stylesheet"> -->
+    <link href="static/main.css" rel="stylesheet">
+    <link id="css-preset" href="static/presets/preset5.css" rel="stylesheet">
+    <link href="static/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="static/img/favicon.ico">
+
+    <style>
+        body {
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+          background-image: url({{ url_for('static', filename='img/home.jpg') }});
+        }
+
+         #TITLE {
+            padding: 30px;
+            text-align: center;
+            font-size: 40px;
+            font-family: courier;
+            font-weight: bold;
+            margin-bottom: 40px;
+            background-image: linear-gradient(to left,red,green,blue,violet,purple);
+            -webkit-background-clip: text;
+            -webkit-background-clip: text;
+            -moz-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        
+
+        input[type=text] {  
+          padding:6px; 
+          border:2px solid #ccc; 
+          font-size: 16px;
+          width: 160px;
+          -webkit-border-radius: 5px;
+          border-radius: 5px;  
+          margin: 10px;
+          opacity: 0.85;
+
+        }
+       
+       input[type=submit]{
+          font-size: 21px;
+          width: 240px;
+          height: 50px;
+          border-radius: 30px;
+          border: 1px double #cccccc;
+          color: #eeeeee;
+          background-color: #171717;
+          cursor: pointer;
+          z-index: 0;
+          opacity: 0.85;
+          
+      }
+      input[type=submit]:hover{
+          font-size: 22px;
+          width: 240px;
+          height: 50px;
+          border-radius: 30px;
+          border: 6px double #6E2E96;
+          color: #eeeeee;
+          background-color: black;
+          cursor: pointer;
+          z-index: 0;
+          opacity: 0.85;
+          
+      }
+
+        th{
+          text-align: center;
+          border: 1px solid black;
+          /*padding: 5px;*/
+          font-size: 18px;
+          font-weight: bold;
+          color: black;
+        }
+
+        td {
+          text-align: center;
+          border: 1px solid black;
+      /*    padding: 5px;*/
+          font-size: 16px;
+          font-weight: bold;
+          color: black;
+        }
+
+        table {
+          text-align:center;  
+          width:100%;  
+          background: rgba(204, 204, 204, 0.3);
+          border-spacing: 20px;
+          margin-bottom: 50px;
+        }
+
+        form {
+          text-align:center;  
+          width:100%;  
+          border-spacing: 20px;
+          margin-bottom: 50px;
+        }
+
+        h1 {
+          text-align: left;
+          background: white;
+          font-weight: bold;
+          font-size: 14px;
+          font-weight: bold;
+          opacity: 0.75;
+        }
+
+        p {
+          margin:0;
+          font-size:14px;
+          line-height:15px;
+          color: black;
+        }
+
+    </style>
+
+  </head>
+
+
+
+</html>
+</head>
+
+<body>
+    <h3>
+         <!-- <a href = "{{ url_for('index') }}">NYC House Price Prediction</a> -->
+        <p id='TITLE' align="center"> NYC House Sale Price Forecast </p>
+    </h3>
+    
+    <table>
+         <thead>
+            <tr>
+              
+               <th>BLOCK</th>
+               <th>BOROUGH</th>
+               <th>GROSS SQUARE FEET</th> 
+               <th>LOT</th> 
+               <th>YEAR BUILT</th>
+               <th>PREDICTED SALE PRICE</th>
+
+<!--                <th>BUILDING CLASS CATEGORY</th>
+               <th>RESIDENTIAL UNITS</th>               
+               <th>COMMERCIAL UNITS</th>                    
+               <th>TOTAL UNITS</th>                     
+               <th>LAND SQUARE FEET</th>                 
+               <th>TAX CLASS AT TIME OF SALE</th>  -->
+               
+            </tr>
+         </thead>
+
+         <tbody>
+            {% for record in records %}
+               <tr>
+                   <!-- <td>{{ record.BUILDING_CLASS_CATEGORY }}</td> -->
+                   <td>{{ record.BLOCK }}</td>
+                   <td>{{ record.BOROUGH }}</td>
+                   <td>{{ record.GROSS_SQUARE_FEET}}</td>
+                   <td>{{ record.LOT }}</td>
+                   <td>{{ record.YEAR_BUILT}}</td>
+                   <td>{{ record.PREDICTED_SALE_PRICE}}</td>
+<!--                    <td>{{ record.RESIDENTIAL_UNITS }}</td>
+                   <td>{{ record.COMMERCIAL_UNITS }}</td>
+                   <td>{{ record.TOTAL_UNITS }}</td>
+                   <td>{{ record.LAND_SQUARE_FEET }}</td>
+                   <td>{{ record.TAX_CLASS_AT_TIME_OF_SALE}}</td> -->
+               </tr>
+            {% endfor %}
+
+         </tbody>
+
+  </table>
+      <form action="{{ url_for('predict_entry') }}" method=post class=predict-entry>
+      <dl>
+        <input type=text size=16 name=bo placeholder="Borough">
+        <input type=text size=16 name=lot placeholder="Lot">
+        <input type=text size=16 name=block placeholder="Block">
+        <input type=text size=16 name=bc placeholder="Building Class">
+        
+        <br> <br/>
+
+        <input type=text size=16 name=tax placeholder="Tax Class at Sale">
+        <input type=text size=16 name=ru placeholder="Residential Units">
+        <input type=text size=16 name=cu placeholder="Commercial Units">
+        <input type=text size=16 name=tu placeholder="Total Units">
+        
+        <br> <br/>
+        <input type=text size=16 name=land placeholder="Land Square Feet">
+        <input type=text size=16 name=gross placeholder="Gross Square Feet">
+        <input type=text size=16 name=year placeholder="Year Built">
+        <input type=submit value="Predict the Price Now!">
+      </dl>
+    </form>
+    
+   
+
+    <h1>
+           <br></br>  
+
+           <a href="https://www1.nyc.gov/site/finance/taxes/property-rolling-sales-data.page">
+           &emsp;Borough:&emsp;</a>
+           <p> &emsp;The name of the borough in which the property is located </p>
+           <p>&emsp;</p>
+          
+
+           <a href="https://www1.nyc.gov/site/finance/taxes/property-rolling-sales-data.page">&emsp;Lot:&emsp;</a> 
+           <p> &emsp;A Tax Lot is a subdivision of a Tax Block and represents the property unique location.</p> 
+           <p>&emsp;</p>
+           
+
+           <a href="https://www1.nyc.gov/site/finance/taxes/property-rolling-sales-data.page">&emsp;Block:&emsp; </a> 
+           <p>&emsp;A Tax Block is a sub-division of the borough on which real properties are located.</p>
+           <p>&emsp;</p>
+
+           <a href="https://www1.nyc.gov/assets/finance/jump/hlpbldgcode.html#Z">
+           &emsp;Building Class Category: &emsp;</a> 
+           <p>&emsp;1: One Family Dwellings; 2: Coops-Elevator Apt; 3: Condos-Elevator Apt; 4: Two Family Dwellings; 5: Others</p>
+           <p>&emsp;</p>
+           
+
+           <a href="https://www1.nyc.gov/site/finance/taxes/property-rolling-sales-data.page">&emsp;Tax at time of sale:&emsp;</a> 
+           <p> &emsp;1: most residential property of up to three units; </p>
+           <p> &emsp;2: all other property that is primarily residential, such as cooperatives and condominiums; </p>
+           <p> &emsp;3: property with equipment owned by a gas, telephone or electric company; </p>
+           <p> &emsp;4: others</p>  
+           <p>&emsp;</p>
+           
+
+           <a href="https://www1.nyc.gov/site/finance/taxes/property-rolling-sales-data.page">&emsp;Residential Units:&emsp; </a> 
+           <p>&emsp;The number of residential units at the listed property.</p> 
+           <p>&emsp;</p>
+           
+            
+           <a href="https://www1.nyc.gov/site/finance/taxes/property-rolling-sales-data.page">&emsp;Commercial Units:&emsp; </a> 
+           <p>&emsp;The number of commercial units at the listed property.</p> 
+           <p>&emsp;</p> 
+           
+                 
+           <a href="https://www1.nyc.gov/site/finance/taxes/property-rolling-sales-data.page">&emsp;Total Units:&emsp; </a> 
+           <p>&emsp;The total number of units at the listed property. </p> 
+           <p>&emsp;</p>
+           
+                   
+           <a href="https://www1.nyc.gov/site/finance/taxes/property-rolling-sales-data.page">&emsp;Land Square Feet:&emsp; </a> 
+           <p>&emsp;The land area of the property listed in square feet.</p> 
+           <p>&emsp;</p>
+           
+
+           <a href="https://www1.nyc.gov/site/finance/taxes/property-rolling-sales-data.page">&emsp;Gross Square Feet:&emsp; </a> 
+           <p>&emsp;The total area of all the floors of a building as measured from the exterior surfaces of the outside walls of the building,</p>  
+           <p>&emsp;including the land area and space within any building or structure on the property.</p>  
+           <p>&emsp;</p>        
+              
+           <a href="https://www1.nyc.gov/site/finance/taxes/property-rolling-sales-data.page">&emsp;Year Built:&emsp;</a> 
+           <p> &emsp;Year the structure on the property was built.</p>   
+           <p>&emsp;</p>
+
+          <br></br>         
+
+    </h1>
+
+
+    <br></br>
+    <br></br>
+    <br></br>
+
+
+
+    <footer id="footer">
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <p>&copy; 2020 Northwestern University MSiA.</p>
+          </div>
+           <div class="col-sm-6">
+            <p class="pull-right">Designed by  <a href="https://www.linkedin.com/in/zekai-zach-zhu/">Zach Zhu</a></p>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

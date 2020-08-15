@@ -1,0 +1,40 @@
+acquire:
+  S3_BUCKET_NAME: nu-zz-s3
+  S3_DATA_PATH: MyData/nyc-rolling-sales.csv
+  DOWNLOAD_FILE_PATH: data/model/nyc-rolling-sales.csv
+
+clean:
+  columns:
+    - SALE PRICE
+    - LAND SQUARE FEET 
+    - GROSS SQUARE FEET
+    - YEAR BUILT
+
+featurize:
+  features: 
+    - bc
+    - res_unit_log
+    - com_unit_log
+    - tot_unit_log
+    - land_log
+    - gross_sqft_log
+
+train:
+  target_column: price
+  test_size: 0.3
+  random_state_split: 66
+  random_state: 66
+  n_estimators: 100
+  method: rf
+  initial_features:
+    - BOROUGH
+    - bc
+    - BLOCK 
+    - LOT
+    - res_unit_log
+    - com_unit_log
+    - tot_unit_log
+    - land_log
+    - gross_sqft_log
+    - year
+    - TAX CLASS AT TIME OF SALE

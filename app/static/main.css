@@ -1,0 +1,18 @@
+#footer {
+  color:#fff;
+}
+
+
+#footer .footer-bottom {
+  background-color: #fff;
+  padding: 20px 0 10px;
+}
+
+#footer .footer-bottom a:hover {
+  text-decoration: underline;
+}
+
+
+/*Presets*/
+
+
